@@ -1,0 +1,29 @@
+#toc {
+    display: none;
+    z-index: 100;
+    position: fixed;
+    right: 10%;
+    top: 20%;
+    border-left: 1px solid #dddddd;
+}
+
+#toc a {
+    display: block;
+    color: #cccccc;
+}
+
+#toc a:hover {
+    color: #666666;
+}
+
+#toc .active a {
+    color: #666666;
+}
+
+#toc ul {
+    margin-left: 1em;
+}
+
+#toc li {
+    display: block;
+}
