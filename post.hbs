@@ -65,7 +65,7 @@ into the {body} of the default.hbs template --}}
                 <section class="post-full-comments">
                     {{!-- If you want to embed comments, this is a good place to do it! --}}
                     <div id="disqus_thread"></div>
-                    <script type="text/javascript" src="{{asset "built/lazy.disqus.js"}}"></script>
+                    <script type="text/javascript" src="{{asset "built/lazy.disqus.js"}}" data-no-instant></script>
                     <script>
                         var disqus_config = function () {
                             this.page.url = "{{url absolute="true"}}";  // Replace PAGE_URL with your page's canonical URL variable

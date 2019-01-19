@@ -5,6 +5,7 @@
     right: 10%;
     top: 20%;
     border-left: 1px solid #dddddd;
+    font-family: inherit;
 }
 
 #toc a {
@@ -23,6 +24,7 @@
 
 #toc ul {
     margin-left: 1em;
+    display: block;
 }
 
 #toc li {

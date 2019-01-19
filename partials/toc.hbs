@@ -14,9 +14,10 @@
         hideEffectSpeed: "fast",
         scrollTo: 80 // avoid text under the header bar
     });
+    var offsetTop = $(".post-full-footer").offset().top;
     $(document).scroll(function () {
         var y = $(this).scrollTop();
-        if (y > 1000 && $(window).width() > 1400) {
+        if (y > 1000 && y < offsetTop && $(window).width() > 1400) {
             $('#toc').fadeIn();
         } else {
             $('#toc').fadeOut();
