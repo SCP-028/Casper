@@ -14,7 +14,11 @@
 
     {{!-- Styles'n'Scripts --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css"
+        integrity="sha256-9F0HwgWlvrVxc95krEjTN7gvwm1DLYuPhZA6piUYuNY=" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/assets/built/katex.fix.css" />
     <link rel="stylesheet" type="text/css" href="{{asset "built/prism.css"}}" />
+    <link rel="stylesheet" type="text/css" href="{{asset "built/jquery.tocbot.css"}}" />
 
     {{!-- This tag outputs SEO meta+structured data and other important settings --}}
     {{ghost_head}}
@@ -32,7 +36,8 @@
         <footer class="site-footer outer">
             <div class="site-footer-content inner">
                 <section class="copyright">
-                    <a href="{{@site.url}}" style="font-weight: bold">{{@site.title}}</a> hosted by <a href="https://www.upcloud.com/register/?promo=E48264"
+                    <a href="{{@site.url}}" style="font-weight: bold">{{@site.title}}</a> hosted by <a
+                        href="https://www.upcloud.com/register/?promo=E48264"
                         style="margin-left: 0; font-weight: bold">UpCloud</a> &copy; {{date format="YYYY"}}</section>
                 <nav class="site-footer-nav">
                     <div>Talk about it; explain it to people.</div>
@@ -71,8 +76,8 @@
 
 
     {{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
     <script type="text/javascript" src="{{asset "built/jquery.fitvids.js"}}"></script>
 
@@ -84,6 +89,47 @@
     JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already
     loaded. --}}
     {{{block "scripts"}}}
+
+    {{!-- Custom scripts --}}
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"
+        integrity="sha256-Q9QAmrZNHug0Xt/VtjbRiAJEDJRLIFcn+5mV748glro=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"
+        integrity="sha256-90d2pnfw0r4K8CZAWPko4rpFXQsZvJhTBGYNkipDprI=" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            renderMathInElement(document.body, {
+                delimiters: [
+                    { left: "\\[", right: "\\]", display: true },
+                    { left: "$", right: "$", display: false }
+                ],
+            });
+        })
+    </script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/prism.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/components/prism-bash.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/components/prism-c.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/components/prism-cpp.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/components/prism-css.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/components/prism-json.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/components/prism-python.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.15.0/components/prism-r.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/tocbot@4.5.1/dist/tocbot.min.js"
+        integrity="sha256-/ckfJgTIsKUdmu0l4sDCwy4esp5MDVjYmY905r9Nt3M=" crossorigin="anonymous"></script>
+    <script>
+        tocbot.init({
+            // Where to render the table of contents.
+            tocSelector: '.toc',
+            // Where to grab the headings to build the table of contents.
+            contentSelector: '.post-content',
+            // Which headings to grab inside of the contentSelector element.
+            headingSelector: 'h2, h3, h4',
+            // Timeout between events firing to make sure it's
+            // not too rapid (for performance reasons).
+            throttleTimeout: 200
+        });
+    </script>
 
     {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the
     closing body tag --}}
