@@ -1,0 +1,1 @@
+{"version":3,"sources":["katex.fix.css"],"names":[],"mappings":"AAAA,OACI,cACJ,CACA,UACI,gBACJ,CACA,kCACI,UAAW,CACX,eAAgB,CAChB,iBACJ","file":"katex.fix.css","sourcesContent":[".katex {\n    font-size: 2rem;\n}\nth .katex {\n    font-size: 1.5rem;\n}\n.katex-display > .katex > .katex-html {\n    width: 95vw;\n    overflow-x: auto;\n    overflow-y: hidden;\n}\n"]}

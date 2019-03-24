@@ -1,0 +1,11 @@
+.katex {
+    font-size: 2rem;
+}
+th .katex {
+    font-size: 1.5rem;
+}
+.katex-display > .katex > .katex-html {
+    width: 95vw;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
