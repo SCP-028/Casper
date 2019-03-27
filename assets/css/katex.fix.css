@@ -4,6 +4,9 @@
 th .katex {
     font-size: 1.5rem;
 }
+.katex-display {
+    margin: 0.5rem 0 0 0;
+}
 .katex-display > .katex > .katex-html {
     width: 95vw;
     overflow-x: auto;

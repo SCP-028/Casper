@@ -45,25 +45,25 @@ pre[class*='language-'] {
 .token.prolog,
 .token.doctype,
 .token.cdata {
-    color: #998;
-    font-style: italic;
+    color: slategray;
 }
 
 .token.punctuation {
     color: #999;
 }
 
+.namespace {
+    opacity: 0.7;
+}
+
 .token.property,
 .token.tag,
+.token.boolean,
+.token.number,
 .token.constant,
 .token.symbol,
 .token.deleted {
     color: #008080;
-}
-
-.token.boolean,
-.token.number {
-    color: #905;
 }
 
 .token.selector,
@@ -79,25 +79,25 @@ pre[class*='language-'] {
 .token.entity,
 .token.url,
 .language-css .token.string,
-.style .token.string,
-.token.variable {
+.style .token.string {
     color: #690;
 }
 
 .token.atrule,
 .token.attr-value,
-.token.function {
-    color: #008080;
-}
-
 .token.keyword {
     color: #07a;
-    font-weight: bold;
+}
+
+.token.function,
+.token.class-name {
+    color: #dd4a68;
 }
 
 .token.regex,
-.token.important {
-    color: #008080;
+.token.important,
+.token.variable {
+    color: #e90;
 }
 
 .token.important,
@@ -110,48 +110,4 @@ pre[class*='language-'] {
 
 .token.entity {
     cursor: help;
-}
-
-@media screen and (-ms-high-contrast: active) {
-    code[class*='language-'],
-    pre[class*='language-'] {
-        color: windowText;
-        background: window;
-    }
-
-    :not(pre) > code[class*='language-'],
-    pre[class*='language-'] {
-        background: window;
-    }
-
-    .token.important {
-        background: highlight;
-        color: window;
-        font-weight: normal;
-    }
-
-    .token.atrule,
-    .token.attr-value,
-    .token.function,
-    .token.keyword,
-    .token.operator,
-    .token.selector {
-        font-weight: bold;
-    }
-
-    .token.attr-value,
-    .token.comment,
-    .token.doctype,
-    .token.function,
-    .token.keyword,
-    .token.operator,
-    .token.property,
-    .token.string {
-        color: highlight;
-    }
-
-    .token.attr-value,
-    .token.url {
-        font-weight: normal;
-    }
 }

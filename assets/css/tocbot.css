@@ -9,6 +9,19 @@
 .toc-active {
     visibility: visible;
 }
+/* Fix for floating header bar */
+.post-full-content h2,
+.post-full-content h3,
+.post-full-content h4 {
+    padding-top: 70px;
+    margin-top: -70px;
+}
+.post-full-content h2:focus,
+.post-full-content h3:focus,
+.post-full-content h4:focus {
+    outline: none;
+    text-decoration: underline;
+}
 .toc > .toc-list {
     overflow: hidden;
     position: relative;
