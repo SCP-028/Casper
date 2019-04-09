@@ -16,3 +16,7 @@ th .katex {
 .post-full-content p code {
     word-break: normal;
 }
+
+.post-full-content table th .katex {
+    text-transform: none;
+}

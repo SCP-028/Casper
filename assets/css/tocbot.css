@@ -12,7 +12,8 @@
 /* Fix for floating header bar */
 .post-full-content h2,
 .post-full-content h3,
-.post-full-content h4 {
+.post-full-content h4,
+.footnotes-list li.footnote-item {
     padding-top: 70px;
     margin-top: -70px;
 }
@@ -22,6 +23,14 @@
     outline: none;
     text-decoration: underline;
 }
+/* Similarly for footnotes */
+sup.footnote-ref a::before {
+    content: '';
+    display: inline-block;
+    height: 100px;
+    margin: -100px 0 0;
+}
+
 .toc > .toc-list {
     overflow: hidden;
     position: relative;
