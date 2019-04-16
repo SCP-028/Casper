@@ -1,5 +1,5 @@
-const { series, watch, src, dest } = require('gulp')
-const pump = require('pump')
+const {series, watch, src, dest, parallel} = require('gulp');
+const pump = require('pump');
 
 // gulp plugins and utils
 const livereload = require('gulp-livereload');
@@ -27,6 +27,13 @@ const handleError = done => {
         }
         return done(err)
     }
+}
+
+function hbs(done) {
+    pump([
+        src(['*.hbs', 'partials/**/*.hbs', '!node_modules/**/*.hbs']),
+        livereload()
+    ], handleError(done));
 }
 
 function css(done) {
@@ -82,9 +89,11 @@ function zipper(done) {
     )
 }
 
-const watcher = () => watch('assets/css/**', css)
-const build = series(css, js)
-const dev = series(build, serve, watcher)
+const cssWatcher = () => watch('assets/css/**', css);
+const hbsWatcher = () => watch(['*.hbs', 'partials/**/*.hbs', '!node_modules/**/*.hbs'], hbs);
+const watcher = parallel(cssWatcher, hbsWatcher);
+const build = series(css, js);
+const dev = series(build, serve, watcher);
 
 exports.build = build;
 exports.zip = series(build, zipper);
@@ -181,8 +190,7 @@ const release = () => {
     }
 
     return previousRelease()
-        .then((previousVersion)=> {
-
+        .then((previousVersion) => {
             changelog({previousVersion});
 
             return releaseUtils
@@ -201,7 +209,7 @@ const release = () => {
                     content: [`**Ships with Ghost ${shipsWithGhost} Compatible with Ghost >= ${compatibleWithGhost}**\n\n`],
                     changelogPath: CHANGELOG_PATH
                 })
-                .then((response)=> {
+                .then((response) => {
                     console.log(`\nRelease draft generated: ${response.releaseUrl}\n`);
                 });
         });
