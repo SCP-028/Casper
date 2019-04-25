@@ -1,8 +1,21 @@
 <div class="toc"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/tocbot@4.5.1/dist/tocbot.min.js"
-    integrity="sha256-/ckfJgTIsKUdmu0l4sDCwy4esp5MDVjYmY905r9Nt3M=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.6.0/dist/tocbot.min.js"
+    integrity="sha256-+fdFDIM3huAQNs/gn7OOoN9jpU+6sx7RCGkvQn9QS0s=" crossorigin="anonymous"></script>
 <script>
+    let headings = document.querySelectorAll('h1, h2, h3, h4, h5, h6, h7')
+    let headingMap = {}
+
+    Array.prototype.forEach.call(headings, function (heading) {
+        let id = heading.textContent.trim().toLowerCase()
+            .split(' ').join('-').replace(/[\!\@\#\$\%\^\&\*\(\)\:]/ig, '')
+        headingMap[id] = !isNaN(headingMap[id]) ? ++headingMap[id] : 0
+        if (headingMap[id]) {
+            heading.id = id + '-' + headingMap[id]
+        } else {
+            heading.id = id
+        }
+    })
     tocbot.init({
         // Where to render the table of contents.
         tocSelector: '.toc',
