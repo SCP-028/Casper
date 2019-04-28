@@ -17,20 +17,6 @@
     padding-top: 70px;
     margin-top: -70px;
 }
-.post-full-content h2:focus,
-.post-full-content h3:focus,
-.post-full-content h4:focus {
-    outline: none;
-    text-decoration: underline;
-}
-/* Similarly for footnotes */
-sup.footnote-ref a::before {
-    content: '';
-    display: inline-block;
-    height: 100px;
-    margin: -100px 0 0;
-}
-
 .toc > .toc-list {
     overflow: hidden;
     position: relative;

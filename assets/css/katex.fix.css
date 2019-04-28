@@ -12,10 +12,6 @@ th .katex {
     overflow-x: auto;
     overflow-y: hidden;
 }
-/* Also fix word breaks for code elements here */
-.post-full-content p code {
-    word-break: normal;
-}
 
 .post-full-content table th .katex {
     text-transform: none;

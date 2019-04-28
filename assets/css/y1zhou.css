@@ -1,0 +1,24 @@
+/* Underline headers when linked */
+.post-full-content h2:focus,
+.post-full-content h3:focus,
+.post-full-content h4:focus {
+    outline: none;
+    text-decoration: underline;
+}
+/* Reserve space for floating header when clicking on footnotes */
+sup.footnote-ref a::before {
+    content: '';
+    display: inline-block;
+    height: 100px;
+    margin: -100px 0 0;
+}
+/* Fix word breaks for long code elements */
+.post-full-content p code {
+    word-break: normal;
+}
+/* Fix footnote on small screens */
+@media (max-width: 800px) {
+    .footnotes {
+        width: 95vw;
+    }
+}
