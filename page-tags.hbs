@@ -1,26 +1,49 @@
 {{!< default}}
 
-<header class="site-header outer">
+{{#post}}
+    {{> header background=feature_image}}
     <div class="inner">
         {{> "site-nav"}}
+        <div class="site-header-content">
+            <h1 class="site-title">Tags</h1>
+        </div>
     </div>
-</header>
+    </header>
+{{/post}}
 
-{{#post}}
-
-    <main id="site-main" class="site-main outer" role="main">
-        <div class="inner">
-            <header class="post-full-header">
-                <h1 class="post-full-title">{{title}}</h1>
-            </header>
-            {{#get 'tags' limit='all' include='count.posts' order='count.posts desc'}}
+<main id="site-main" class="site-main outer tag-template">
+    <div class="inner">
+        <div class="post-feed">
+            {{#get 'tags' limit='all' include='count.posts' order='created_at desc'}}
                 {{#foreach tags}}
-                    <a href='/tag/{{ name }}/'>
-                        <h2>{{ name }} <small>({{ count.posts }})</small></h2>
-                    </a>
+                    <article
+                        class="post-card {{#unless feature_image}}no-image{{else}}{{#has index="nth:6"}}post-card-large{{/has}}{{/unless}}">
+                        {{#if feature_image}}
+                            <a class="post-card-image-link" href="{{url}}">
+                                <img class="post-card-image" srcset="{{img_url feature_image size="s"}} 300w,
+                    {{img_url feature_image size="m"}} 600w,
+                    {{img_url feature_image size="l"}} 1000w,
+                    {{img_url feature_image size="xl"}} 2000w" sizes="(max-width: 1000px) 400px, 700px"
+                                    src="{{img_url feature_image size="m"}}" alt="{{name}}" />
+                            </a>
+                        {{/if}}
+                        <div class="post-card-content">
+                            <a class="post-card-content-link" href="{{url}}">
+                                <h2 class="post-card-title" style="text-align: center">{{name}}</h2>
+
+                                <section class="post-card-excerpt">
+                                    <p>{{description}}</p>
+                                </section>
+                            </a>
+
+                            <footer class="post-card-meta" style="justify-content: flex-end">
+                                <span
+                                    class="reading-time">{{plural count.posts empty='NO POSTS' singular='% POST' plural='% POSTS'}}</span>
+                            </footer>
+                        </div>{{!--/.post-card-content--}}
+                    </article>
                 {{/foreach}}
             {{/get}}
         </div>
-    </main>
-
-{{/post}}
+    </div>
+</main>
