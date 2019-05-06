@@ -1,0 +1,38 @@
+<div class="menu-toggle">
+    <!--
+    A fake / hidden checkbox is used as click reciever,
+    so you can use the :checked selector on it.
+    -->
+    <input type="checkbox" />
+
+    <span></span>
+    <span></span>
+    <span></span>
+
+    <aside class="toc-menu">
+        <ol class="toc-menu-list"></ol>
+    </aside>
+</div>
+
+<script>
+    window.onload = function () {
+        let menuButton = document.querySelector(".menu-toggle input");
+        let tocSimple = document.querySelector('.post-content').querySelectorAll("h2, h3, h4");
+        tocMenuList = document.querySelector(".toc-menu-list");
+        Array.prototype.forEach.call(tocSimple, function (heading) {
+            let newEntry = document.createElement("li");
+            newEntry.setAttribute("class", "toc-list toc-level-" + heading.tagName.toLowerCase());
+
+            let newLink = document.createElement("a");
+            newLink.setAttribute("id", heading.id);
+            newLink.setAttribute("href", "#" + heading.id);
+            newLink.innerHTML = heading.textContent.trim();
+            newLink.onclick = function () {
+                menuButton.checked = false;
+            }
+
+            newEntry.appendChild(newLink);
+            tocMenuList.appendChild(newEntry);
+        });
+    };
+</script>

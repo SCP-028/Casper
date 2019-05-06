@@ -60,8 +60,129 @@ a.toc-link {
 .is-active-link::before {
     background-color: #54bc4b;
 }
+/* CSS hamburger menu https://codepen.io/erikterwan/pen/EVzeRP */
+.menu-toggle {
+    display: none;
+}
 @media (max-width: 1400px) {
+    /* Hide tocbot on small screens */
     .toc {
         display: none;
+    }
+
+    .menu-toggle {
+        display: block;
+        position: relative;
+        user-select: none;
+        right: 1rem;
+        top: 0.15rem;
+    }
+
+    .menu-toggle input {
+        display: block;
+        width: 2.4rem;
+        height: 2.4rem;
+        position: absolute;
+
+        opacity: 0; /* hide this */
+        z-index: 3; /* and place it over the hamburger */
+
+        -webkit-touch-callout: none;
+    }
+
+    .menu-toggle span {
+        text-decoration: none;
+
+        display: block;
+        width: 2.4rem;
+        height: 0.4rem;
+        margin-bottom: 0.4rem;
+        position: relative;
+        /* Color for the hamburger menu */
+        background: #3c484e;
+        border-radius: 0.25rem;
+
+        z-index: 2;
+        transition: all 300ms ease;
+    }
+    .menu-toggle span:first-of-type {
+        top: 0;
+    }
+    .menu-toggle span:last-of-type {
+        bottom: 0;
+    }
+
+    /*
+    * Transform all the slices of hamburger
+    * into a crossmark.
+    */
+    .menu-toggle input:checked ~ span:first-of-type {
+        transform: rotateZ(-45deg);
+        top: 0.8rem;
+    }
+    /* Hide the one in the middle */
+    .menu-toggle input:checked ~ span:nth-last-of-type(2) {
+        opacity: 0;
+    }
+    /* The last one should go the other direction */
+    .menu-toggle input:checked ~ span:last-of-type {
+        transform: rotateZ(45deg);
+        bottom: 0.8rem;
+    }
+
+    /* Menu background */
+    .toc-menu {
+        position: fixed;
+        display: block;
+        width: 90vw;
+        height: 100vh;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 1;
+
+        background: rgba(255, 255, 255, 0.95);
+        box-shadow: 0 0.35rem 0.25rem rgba(0, 0, 0, 0.15);
+        -webkit-font-smoothing: antialiased;
+
+        /* transform-origin: 100% 0%; */
+        transform: translate(100%, 0);
+        transition: transform 250ms cubic-bezier(0.77, 0.2, 0.05, 1);
+    }
+    .menu-toggle input:checked ~ .toc-menu {
+        transform: none;
+    }
+
+    .toc-menu-list {
+        z-index: 4;
+        font-family: inherit;
+        font-size: 2rem;
+        margin-top: 8rem;
+        padding: 0;
+    }
+
+    .toc-menu-list > .toc-list {
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .toc-menu-list a {
+        color: currentColor;
+        height: 100%;
+    }
+
+    .toc-level-h2 {
+        margin-left: 1rem;
+        font-weight: 700;
+    }
+    .toc-level-h3 {
+        margin-left: 3rem;
+    }
+    .toc-level-h4 {
+        margin-left: 5rem;
+        font-weight: 300;
     }
 }

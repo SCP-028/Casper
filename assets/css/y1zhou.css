@@ -22,3 +22,8 @@ sup.footnote-ref a::before {
         width: 95vw;
     }
 }
+
+/* Add margin to comment section as the authors section was removed */
+.post-full-comments {
+    margin-top: 5rem;
+}
