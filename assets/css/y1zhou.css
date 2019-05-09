@@ -5,13 +5,6 @@
     outline: none;
     text-decoration: underline;
 }
-/* Reserve space for floating header when clicking on footnotes */
-sup.footnote-ref a::before {
-    content: '';
-    display: inline-block;
-    height: 100px;
-    margin: -100px 0 0;
-}
 /* Fix word breaks for long code elements */
 .post-full-content p code {
     word-break: normal;
