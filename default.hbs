@@ -14,8 +14,8 @@
 
     {{!-- Styles'n'Scripts --}}
     <link rel="stylesheet" type="text/css" href="{{asset "built/screen.css"}}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.css"
-        integrity="sha256-9F0HwgWlvrVxc95krEjTN7gvwm1DLYuPhZA6piUYuNY=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.css"
+        integrity="sha384-bsHo4/LA+lkZv61JspMDQB9QP1TtO4IgOf2yYS+J6VdAYLVyx1c3XKcsHh0Vy8Ws" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{{asset "built/katex.fix.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "built/prism.css"}}" />
     <link rel="stylesheet" type="text/css" href="{{asset "built/tocbot.css"}}" />
@@ -49,40 +49,80 @@
     </div>
 
     {{!-- The big email subscribe modal content --}}
-    {{#if @labs.subscribers}}
+    {{#if @labs.members}}
+        <div class="subscribe-success-message">
+            <a class="subscribe-close" href="javascript:;"></a>
+            You've successfully subscribed to {{@site.title}}!
+        </div>
+
         <div id="subscribe" class="subscribe-overlay">
-            <a class="subscribe-overlay-close" href="#"></a>
+            <a class="subscribe-close" href="#"></a>
             <div class="subscribe-overlay-content">
                 {{#if @site.logo}}
                     <img class="subscribe-overlay-logo" src="{{@site.logo}}" alt="{{@site.title}}" />
                 {{/if}}
-                <h1 class="subscribe-overlay-title">Subscribe to {{@site.title}}</h1>
-                <p class="subscribe-overlay-description">Stay up to date! Get all the latest &amp; greatest posts
-                    delivered straight to your inbox</p>
-                {{subscribe_form placeholder="youremail@example.com"}}
+                <div class="subscribe-form">
+                    <h1 class="subscribe-overlay-title">Subscribe to {{@site.title}}</h1>
+                    <p class="subscribe-overlay-description">Stay up to date! Get all the latest & greatest posts
+                        delivered straight to your inbox</p>
+                    <form data-members-form="subscribe">
+                        <div class="form-group">
+                            <input class="subscribe-email" data-members-email placeholder="youremail@example.com"
+                                autocomplete="false" />
+                            <button class="button primary" type="submit">
+                                <span class="button-content">Subscribe</span>
+                                <span class="button-loader">{{> "icons/loader"}}</span>
+                            </button>
+                        </div>
+                        <div class="message-success">
+                            <strong>Great!</strong> Check your inbox and click the link to confirm your subscription.
+                        </div>
+                        <div class="message-error">
+                            Please enter a valid email address!
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
     {{/if}}
 
-    <script>
-        var images = document.querySelectorAll('.kg-gallery-image img');
-        images.forEach(function (image) {
-            var container = image.closest('.kg-gallery-image');
-            var width = image.attributes.width.value;
-            var height = image.attributes.height.value;
-            var ratio = width / height;
-            container.style.flex = ratio + ' 1 0%';
-        })
-    </script>
-
-
-    {{!-- jQuery + Fitvids, which makes all video embeds responsive --}}
+    {{!-- jQuery, required for fitvids --}}
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"
         integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    {{!-- Fitvids (for responsive video embeds), infinite scroll, floating header, and gallery card support --}}
+    <script src="{{asset "built/casper.js"}}"></script>
 
-    <script type="text/javascript" src="{{asset "built/jquery.fitvids.js"}}"></script>
+    {{!-- Scripts for Members subscription --}}
+    <script>
+        // Parse the URL parameter
+        function getParameterByName(name, url) {
+            if (!url) url = window.location.href;
+            name = name.replace(/[\[\]]/g, "\\$&");
+            var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, " "));
+        }
 
-    <script src="{{asset "built/infinitescroll.js"}}"></script>
+        // Give the parameter a variable name
+        var action = getParameterByName('action');
+
+        $(document).ready(function () {
+            if (action == 'subscribe') {
+                $('body').addClass("subscribe-success");
+            }
+
+            $('.subscribe-success-message .subscribe-close').click(function () {
+                $('.subscribe-success-message').addClass('close');
+            });
+
+            // Reset form on opening subscrion overlay
+            $('.subscribe-button').click(function () {
+                $('.subscribe-overlay form').removeClass();
+                $('.subscribe-email').val('');
+            });
+        });
+    </script>
 
     {{!-- The #block helper will pull in data from the #contentFor other template files. In this case, there's some
     JavaScript which we only want to use in post.hbs, but it needs to be included down here, after jQuery has already
@@ -90,29 +130,27 @@
     {{{block "scripts"}}}
 
     {{!-- Custom scripts --}}
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/katex.min.js"
-        integrity="sha256-Q9QAmrZNHug0Xt/VtjbRiAJEDJRLIFcn+5mV748glro=" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/katex@0.10.1/dist/contrib/auto-render.min.js"
-        integrity="sha256-90d2pnfw0r4K8CZAWPko4rpFXQsZvJhTBGYNkipDprI=" crossorigin="anonymous"></script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            renderMathInElement(document.body, {
-                delimiters: [
-                    { left: "\\[", right: "\\]", display: true },
-                    { left: "$", right: "$", display: false }
-                ],
-            });
-        })
-    </script>
+    <!-- The loading of KaTeX is deferred to speed up page rendering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+        integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz"
+        crossorigin="anonymous"></script>
 
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/prism.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-bash.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-c.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-cpp.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-css.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-json.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-python.min.js"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.16.0/components/prism-r.min.js"></script>
+    <!-- To automatically render math in text elements, include the auto-render extension: -->
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+        integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+        onload="renderMathInElement(document.body, {
+                delimiters: [
+                    { left: '\\[', right: '\\]' , display: true }, { left: '$' , right: '$' , display: false } ],
+        });"></script>
+
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/prism.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-bash.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-c.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-cpp.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-css.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-json.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-python.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.17.1/components/prism-r.min.js"></script>
 
     {{!-- Ghost outputs important scripts and data with this tag - it should always be the very last thing before the
     closing body tag --}}
