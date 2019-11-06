@@ -51,7 +51,7 @@
             } else {
                 nav.classList.remove(options.activeClass)
             }
-            if (lastScrollY > 1000) {
+            if (lastScrollY > 1500) {
                 toc.classList.add('toc-active')
             } else {
                 toc.classList.remove('toc-active')

@@ -1,7 +1,7 @@
 <div class="toc"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/tocbot@4.6.0/dist/tocbot.min.js"
-    integrity="sha256-+fdFDIM3huAQNs/gn7OOoN9jpU+6sx7RCGkvQn9QS0s=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/tocbot@4.8.1/dist/tocbot.min.js"
+    integrity="sha256-5K/04vUxP94HmQ8f18TgufdyqE69WDJRMNga0JLhAtE=" crossorigin="anonymous"></script>
 <script>
     let headings = document.querySelectorAll('h2, h3, h4, h5, h6, h7')
     let headingMap = {}
@@ -26,6 +26,7 @@
         // Timeout between events firing to make sure it's
         // not too rapid (for performance reasons).
         throttleTimeout: 200,
-        scrollSmooth: false
+        scrollSmooth: true,
+        scrollSmoothDuration: 200
     });
 </script>
