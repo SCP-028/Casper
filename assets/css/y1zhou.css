@@ -5,6 +5,15 @@
     outline: none;
     text-decoration: underline;
 }
+
+/* Fixed header when clicking on TOC */
+.post-full-content h2,
+.post-full-content h3,
+.post-full-content h4 {
+    padding-top: 8rem;
+    margin-top: -8rem !important;
+}
+
 /* Fix word breaks for long code elements */
 .post-full-content p code {
     word-break: normal;
