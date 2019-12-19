@@ -28,7 +28,7 @@ production stylesheet in assets/built/screen.css
 
 /* 1. Global - Set up the things
 /* ---------------------------------------------------------- */
-@import 'global.css';
+@import "global.css";
 
 body {
     background: #fff;
@@ -116,7 +116,7 @@ body {
 }
 
 .site-header-background:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -128,7 +128,7 @@ body {
 }
 
 .site-header-background:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 0;
     right: 0;
@@ -278,6 +278,34 @@ body {
     font-size: 1.3rem;
 }
 
+.site-nav-left-wrapper {
+    position: relative;
+    flex: 1 0 auto;
+    display: flex;
+}
+
+.site-header-background:not(.responsive-header-img)
+    .site-nav-left-wrapper:after,
+.site-nav-main .site-nav-left-wrapper:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    z-index: 1000;
+    width: 40px;
+    height: 100%;
+}
+
+.site-header-background:not(.responsive-header-img)
+    .site-nav-left-wrapper:after,
+.site-nav-main .site-nav-left-wrapper:after {
+    right: 0;
+    background: linear-gradient(
+        to right,
+        color(var(--darkgrey) l(-5%) a(0)) 0%,
+        color(var(--darkgrey) l(-5%)) 100%
+    );
+}
+
 .site-nav-left {
     flex: 1 0 auto;
     display: flex;
@@ -295,30 +323,8 @@ body {
     -ms-overflow-scrolling: touch;
 }
 
-@media (max-width: 700px) {
-    .site-header-background:not(.responsive-header-img) .site-nav:after,
-    .site-nav-main .site-nav:after {
-        content: '';
-        position: absolute;
-        top: 0;
-        z-index: 1000;
-        width: 40px;
-        height: 100%;
-    }
-
-    .site-header-background:not(.responsive-header-img) .site-nav:after,
-    .site-nav-main .site-nav:after {
-        right: 0;
-        background: linear-gradient(
-            to right,
-            color(var(--darkgrey) l(-5%) a(0)) 0%,
-            color(var(--darkgrey) l(-5%)) 100%
-        );
-    }
-
-    .nav li:last-of-type {
-        padding-right: 20px;
-    }
+.site-nav-left .nav li:last-of-type {
+    padding-right: 20px;
 }
 
 /* Site Nav Hack Explanation (above):
@@ -394,7 +400,7 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 }
 
 .nav li a:before {
-    content: '';
+    content: "";
     position: absolute;
     right: 100%;
     bottom: 8px;
@@ -434,7 +440,7 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 }
 
 .nav-post-title.dash:before {
-    content: '– ';
+    content: "– ";
     opacity: 0.5;
 }
 
@@ -445,21 +451,35 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 }
 
 .site-nav-right {
-    flex-shrink: 0;
+    flex: 0 1 auto;
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     padding: 10px 0;
     height: 64px;
+}
+
+.site-nav-right .nav {
+    position: relative;
+    margin: 0;
+}
+
+.site-nav-right .nav a {
+    white-space: nowrap;
+}
+
+.site-nav-right .nav a:before {
+    display: none;
+}
+
+.site-nav-right .nav li:last-of-type a {
+    margin-right: -12px;
 }
 
 .social-links {
     flex-shrink: 0;
     display: flex;
     align-items: center;
-}
-
-.social-links a:last-of-type {
-    padding-right: 20px;
 }
 
 .social-link {
@@ -497,9 +517,9 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
 .subscribe-button {
     display: block;
     padding: 4px 10px;
+    margin: 0 0 0 10px;
     border: #fff 1px solid;
     color: #fff;
-    font-size: 1.2rem;
     line-height: 1em;
     border-radius: 10px;
     opacity: 0.8;
@@ -510,7 +530,12 @@ The knock-on effect of this is ugly browser-scroll bars at the bottom, so 80px o
     opacity: 1;
 }
 
+.site-nav-right .nav + .subscribe-button {
+    margin-left: 24px;
+}
+
 .rss-button {
+    padding: 10px 8px;
     opacity: 0.8;
 }
 
@@ -1098,7 +1123,7 @@ Usage (In Ghost edtior):
 ![img](/some/image.jpg#full)
 
 */
-.post-full-content img[src$='#full'] {
+.post-full-content img[src$="#full"] {
     max-width: none;
     width: 100vw;
 }
@@ -1196,7 +1221,7 @@ Usage (In Ghost editor):
 }
 
 .post-full-content hr:after {
-    content: '';
+    content: "";
     position: absolute;
     top: -15px;
     left: 50%;
@@ -1220,8 +1245,8 @@ Usage (In Ghost editor):
 .post-full-content h5,
 .post-full-content h6 {
     color: color(var(--darkgrey) l(-5%));
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 }
 
 .post-full-content h1 {
@@ -1405,8 +1430,8 @@ Usage (In Ghost editor):
     width: auto;
     border-spacing: 0;
     border-collapse: collapse;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 1.6rem;
     white-space: nowrap;
     vertical-align: top;
@@ -1553,7 +1578,7 @@ Usage (In Ghost editor):
 }
 
 .author-list-item .author-card:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 100%;
     left: 50%;
@@ -2082,8 +2107,8 @@ Usage (In Ghost editor):
 .post-full-content figcaption {
     margin: 1em 0 0;
     color: color(var(--midgrey) l(-10%));
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     font-size: 75%;
     line-height: 1.5em;
     text-align: center;
@@ -2167,8 +2192,8 @@ Usage (In Ghost editor):
     display: flex;
     min-height: 148px;
     color: var(--darkgrey);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
-        Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+        Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
     text-decoration: none;
     border-radius: 3px;
     box-shadow: 0 2px 5px -1px rgba(0, 0, 0, 0.15), 0 0 1px rgba(0, 0, 0, 0.09);
@@ -2253,7 +2278,7 @@ Usage (In Ghost editor):
 }
 
 .kg-bookmark-author:after {
-    content: '•';
+    content: "•";
     margin: 0 6px;
 }
 
@@ -2413,7 +2438,7 @@ Usage (In Ghost editor):
 .author-location + .author-stats:before,
 .author-stats + .author-social-link:before,
 .author-social-link + .author-social-link:before {
-    content: '\2022';
+    content: "\2022";
     display: inline-block;
     margin: 0 12px;
     color: #fff;
@@ -2574,7 +2599,7 @@ Usage (In Ghost editor):
 }
 
 .subscribe-close:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 32px;
     right: 25px;
@@ -2587,7 +2612,7 @@ Usage (In Ghost editor):
 }
 
 .subscribe-close:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 32px;
     right: 25px;
@@ -2774,7 +2799,7 @@ Usage (In Ghost editor):
 }
 
 .site-footer-nav a:before {
-    content: '';
+    content: "";
     position: absolute;
     top: 11px;
     left: -11px;
@@ -2963,7 +2988,7 @@ Usage (In Ghost editor):
     .post-full-content .kg-bookmark-container,
     .post-full-content .kg-bookmark-container:hover {
         color: rgba(255, 255, 255, 0.75);
-        box-shadow: 0 0 1px rgba(255,255,255,0.9);
+        box-shadow: 0 0 1px rgba(255, 255, 255, 0.9);
     }
 
     .kg-bookmark-title {
